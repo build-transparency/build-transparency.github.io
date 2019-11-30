@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, initial-scale=1.0"/>
+        <title>Build Transparency (Trustix)</title>
+        <meta name="description" content="Solving trust in binary distribution and software builds."/>
+        <link rel="canonical" href="http://build-transparency.org"/>
+        <style>
+            body {margin: 5% auto; background: #f2f2f2; color: #444444; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.8; text-shadow: 0 1px 0 #ffffff; max-width: 73%;}
+            code {background: white;}
+            a {border-bottom: 1px solid #444444; color: #444444; text-decoration: none;}
+            a:hover {border-bottom: 0;}
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>Build transparency</h1>
+            <aside>Solving trust in binary distribution and software builds.</aside>
+        </header>
+
+        <h2>
+            <strong>Introduction</strong>
+        </h2>
+
+
+        <p>
+            When we install a program, we usually trust that the software binaries that we download correspond to the program that we want.
+            But how do we know that we aren't installing something else, for example something potentially malicious?
+        </p>
+
+        <p>
+            Typically, we have confidence in those binaries because we download them from a trusted provider.
+            This trusted provider might add a <a href="https://en.wikipedia.org/w/index.php?title=Digital_signature">digital signature</a> and a <a href="https://en.wikipedia.org/w/index.php?title=Cryptographic_hash_function">cryptographic hash</a> to the binaries.
+            With them, we can make sure that what we download really comes from this provider and not from somebody else, avoiding <a href="https://en.wikipedia.org/w/index.php?title=Man-in-the-middle_attack">man-in-the-middle attacks</a>.<br />
+            The trusted provider might also tell us the <em>build inputs</em>, that is the source code, programs and commands that it supposedly used to construct the binaries, that is the <em>build output</em>.<br />
+            But if the provider itself is compromised, arbitrary outputs can still be produced, and a signed and hashed binary - undoubtedly shipped from the provider to the user - could correspond to anything.<br />
+            In summary, we know what goes in and what comes out, but what happens <em>on</em> the provider and whether those inputs and outputs are related is unclear.<br/>
+            The provider itself is thus a <a href="https://en.wikipedia.org/w/index.php?title=Single_point_of_failure">single point of failure</a> in the chain of trust that ensures the integrity of software supply chains.
+        </p>
+
+        <h2>
+            <strong>Trustix - build transparency reference implementation</strong>
+        </h2>
+        <p>
+            Trustix is a tool that compares build outputs for a given build input across <em>a group of independent providers</em>.<br />
+            Naively, we would expect that a build output must be the same if the build input is the same.<br />
+            Multiple providers can then vouch for the content of such a <em>reproducible build</em>, and a user can for example trust in a consensus of the provider group.<br />
+            In this case, Trustix can identify corrupted providers and seamlessly replace them and any binaries that they distributed.<br />
+            Except, in reality the situation is more complex because builds are very often <em>non-reproducible</em> without being maliciously modified:<br />
+            For example, dates, hard coded paths, race conditions, and even random numbers could appear in a build output.<br />
+            The content of many binaries is therefore expected to change.<br />
+            In this case, Trustix can still compare binaries and automatically track build reproducibility on the large scale.<br />
+            Tracking and identifying non-reproducible builds is the first step to compare and verify them as well.<br />
+            Thus, we see Trustix as the first step towards an entire decentralized software supply chain that can securely distribute software without any central corruptible entity.<br />
+        </p>
+
+        <footer>
+            <p><strong>Contact:</strong> adisbladis [@AT@] build-transparency.org</p>
+        </footer>
+    </body>
+</html>
